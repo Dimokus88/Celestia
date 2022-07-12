@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   app:
-    image: dimokus88/celestia:0.0.5
+    image: dimokus88/celestia:0.0.6
     
     env:
 #1.Private information section, do not share data from this section!Раздел часной информации, неделитесь даннмы из этого раздела!
