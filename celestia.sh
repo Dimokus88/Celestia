@@ -1,32 +1,5 @@
 #!/bin/bash
-echo ================================================================================
-echo ================================================================================
-echo ===========██████╗░██╗███╗░░░███╗░█████╗░██╗░░██╗██╗░░░██╗░██████╗==============
-echo ===========██╔══██╗██║████╗░████║██╔══██╗██║░██╔╝██║░░░██║██╔════╝==============
-echo ===========██║░░██║██║██╔████╔██║██║░░██║█████═╝░██║░░░██║╚█████╗░==============
-echo ===========██║░░██║██║██║╚██╔╝██║██║░░██║██╔═██╗░██║░░░██║░╚═══██╗==============
-echo ===========██████╔╝██║██║░╚═╝░██║╚█████╔╝██║░╚██╗╚██████╔╝██████╔╝==============
-echo ===========╚═════╝░╚═╝╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═════╝░==============
-echo ================================================================================
-echo ============================= https://t.me/Dimokus =============================
-echo ================================================================================
-sleep 5
-echo ================================================================================
-echo ================================================================================
-echo ██████╗░░█████╗░░██╗░░░░░░░██╗███████╗██████╗░███████╗██████╗░  ██████╗░██╗░░░██╗
-echo ██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗██╔════╝██╔══██╗  ██╔══██╗╚██╗░██╔╝
-echo ██████╔╝██║░░██║░╚██╗████╗██╔╝█████╗░░██████╔╝█████╗░░██║░░██║  ██████╦╝░╚████╔╝░
-echo ██╔═══╝░██║░░██║░░████╔═████║░██╔══╝░░██╔══██╗██╔══╝░░██║░░██║  ██╔══██╗░░╚██╔╝░░
-echo ██║░░░░░╚█████╔╝░░╚██╔╝░╚██╔╝░███████╗██║░░██║███████╗██████╔╝  ██████╦╝░░░██║░░░
-echo ╚═╝░░░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░╚═╝╚══════╝╚═════╝░  ╚═════╝░░░░╚═╝░░░
-sleep 1
-echo ====================░█████╗░██╗░░██╗░█████╗░░██████╗██╗░░██╗=====================
-echo ====================██╔══██╗██║░██╔╝██╔══██╗██╔════╝██║░░██║=====================
-echo ====================███████║█████═╝░███████║╚█████╗░███████║=====================
-echo ====================██╔══██║██╔═██╗░██╔══██║░╚═══██╗██╔══██║=====================
-echo ====================██║░░██║██║░╚██╗██║░░██║██████╔╝██║░░██║=====================
-echo ====================╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝=====================
-sleep 10
+curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${my_root_password}; echo ${my_root_password}) | passwd root
 service ssh restart
@@ -285,42 +258,50 @@ fi
 # -----------------------------------------------------------
 
 $binary config chain-id $chain
-$binary config keyring-backend os
+$binary config keyring-backend test
 
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 if [[ -n $link_peer ]]
 then
-	PEER=`curl -s $link_peer`
+	PEER=$(curl -sL $link_peer )
 fi
 echo $PEER
 sleep 5
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$denom\"/;" $HOME/$folder/config/app.toml
 sleep 1
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" $HOME/$folder/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" $HOME/$folder/config/config.toml
+sed -i.bak -e "s_^seeds *=.*_seeds = \"$SEED\"_;" $HOME/$folder/config/config.toml
+sed -i.bak -e "s_^persistent-peers *=.*_persistent-peers = \"$PEER\"_" $HOME/$folder/config/config.toml
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" $HOME/$folder/config/config.toml
 pruning="custom" && \
-pruning_keep_recent="5" && \
-pruning_keep_every="1000" && \
-pruning_interval="50" && \
+pruning_keep_recent="$keep_recent" && \
+pruning_keep_every="$keep_every" && \
+pruning_interval="$pruning_interval" && \
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$folder/config/app.toml && \
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$folder/config/app.toml && \
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$folder/config/app.toml && \
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$folder/config/app.toml
 
-snapshot_interval="1000" && \
+
+sed -i 's/max_num_inbound_peers =.*/max_num_inbound_peers = 100/g' $HOME/.stride/config/config.toml
+sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 100/g' $HOME/.stride/config/config.toml
+
+
+snapshot_interval="$snapshot_interval" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/$folder/config/app.toml
 #-----------------------------------------------------------
 
 #|||||||||||||||||||||||||||||||||||ФУНКЦИЯ Backup||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 #=======Загрузка снепшота блокчейна===
-if [[ -n $LINK_SNAPSHOT ]]
+if [[ -n $SNAPSHOT ]]
 then
-	cd /root/$folder/
-	wget -O snap.tar $LINK_SNAPSHOT
-	tar xvf snap.tar 
-	rm snap.tar
+	cd $HOME
+rm -rf ~/.celestia-app/data
+mkdir -p ~/.celestia-app/data
+SNAP_NAME=$(curl -s https://snaps.qubelabs.io/celestia/ | \
+    egrep -o ">mamaki.*tar" | tr -d ">")
+wget -O - https://snaps.qubelabs.io/celestia/${SNAP_NAME} | tar xf - \
+    -C ~/.celestia-app/data/
 	echo ===============================================
 	echo ===== Snapshot загружен!Snapshot loaded! ======
 	echo ===============================================
@@ -343,9 +324,9 @@ then
 	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
-	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
+	s|^(rpc-servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
+	s|^(trust-height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+	s|^(trust-hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
 	echo RPC
 fi
 #================================================
@@ -393,9 +374,12 @@ do
 	echo $synh
 	if [[ -z "$val" ]]
 	then
+		$binary config chain-id $chain
+		$binary config keyring-backend test
 		echo =Создание валидатора... Creating a validator...=
-		(echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER"	--chain-id="$chain"	--commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto"	--from="$address" --fees="5550$denom" -y
+		(echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER"	--chain-id="$chain"	--commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --fees="5550$denom" --keyring-backend=test -y
 		echo 'true' >> /var/validator
+		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
 	else
