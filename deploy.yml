@@ -3,37 +3,28 @@ version: "2.0"
 
 services:
   app:
-    image: ubuntu:latest
-    
+    image: dimokus88/celestia:0.0.15
+
     env:
 #1.Private information section, do not share data from this section!Раздел часной информации, неделитесь даннмы из этого раздела!
-#1.Раздел часной информации, неделитесь даннмы из этого раздела!
-     - "my_root_password=" #Root password for ssh connection.Пароль root для подключения по ssh
-     - "MONIKER=" #Node name. Имя ноды
-     - "MNEMONIC=" #Seed phrase from the test wallet. Deed фраза от тестового кошелька
-     - "LINK_KEY=" # link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets.Ссылка на размещенный pirv-validator_key.json (прямое скачивание). Подойдет и от других тестнетов на базе Cosmos.
+     - "my_root_password=" # пароль root для подключения по ssh
+     - "MONIKER=" #Имя ноды (Если нетрудно, укажите в имени ноды Akash, например:DimokusAkash). Node name (If it is not difficult, specify Akash in the node name, for example:DimokusAkash). 
+     - "MNEMONIC=" # seed phrase from the  wallet. seed фраза от кошелька .
+     - "LINK_KEY=" # link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets. ссылка на размещенный pirv-validator_key.json (прямое скачивание). Подойдет и от других тестнетов на базе Cosmos.
 #==================================================================
-#2.Section of variables for node operation.
-#2.Раздел переменных для работы ноды.
-     - "binary=celestia-appd"
-     - "vers=v0.6.0"
+#2.Section of variables for node operation.Раздел переменных для работы ноды.
      - "genesis=https://github.com/celestiaorg/networks/raw/master/mamaki/genesis.json"
-     - "folder=.celestia-app"
-     - "denom=utia"
-     - "chain=mamaki"
-     - "gitrep=https://github.com/celestiaorg/celestia-app"
-     - "gitfold=celestia-app"
+     - "autodelegate=yes"
+     - "vers=v0.6.0"
+     - "keep_recent=5"
+     - "keep_every=2000"
+     - "pruning_interval=50"
+     - "snapshot_interval=2000"
      - "link_peer=https://raw.githubusercontent.com/Dimokus88/Celestia/main/PEER"
      - "link_rpc=https://raw.githubusercontent.com/Dimokus88/Celestia/main/state_sync"
      - "SHIFT=2000"
      - "SNAP_RPC=http://rpc2.bonded.zone:21357"
-     - "autodelegate=yes"
-#====================================   
-    command:
-      - "bash"
-      - "-c"
-    args:
-      - 'apt-get update ; apt-get upgrade -y ; apt-get install -y  curl ; curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/main.sh | bash ; sleep infinity'
+
     expose:
       - port: 80
         as: 80
@@ -43,15 +34,7 @@ services:
         as: 22
         to:
           - global: true
-      - port: 26656
-        as: 26656
-        to:
-          - global: true
-      - port: 26657
-        as: 26657
-        to:
-          - global: true
-        
+
 profiles:
   compute:
     app:
@@ -61,12 +44,13 @@ profiles:
         memory:
           size: 3Gi
         storage:
-          size: 30Gi
-         
+          size: 50Gi
+
   placement:
     akash: 
       attributes:
-            
+        host: akash
+
       pricing:
         app:
           denom: uakt
