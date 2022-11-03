@@ -95,6 +95,7 @@ fi
 
 if [[ -n ${GENESIS} ]]
 then
+	rm /root/$BINARY/config/genesis.json
 	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
 	DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
