@@ -166,9 +166,9 @@ pruning_keep_recent="5" && \
 pruning_keep_every="1000" && \
 pruning_interval="50" && \
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$BINARY/config/app.toml && \
-sed -i -e "s/^pruning_keep_recent *=.*/pruning_keep_recent = \"$pruning_keep_recent\"/" /root/$BINARY/config/app.toml && \
-sed -i -e "s/^pruning_keep_every *=.*/pruning_keep_every = \"$pruning_keep_every\"/" /root/$BINARY/config/app.toml && \
-sed -i -e "s/^pruning_interval *=.*/pruning_interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
+sed -i -e "s/^pruning-keep_recent *=.*/pruning-keep_recent = \"$pruning_keep_recent\"/" /root/$BINARY/config/app.toml && \
+sed -i -e "s/^pruning-keep_every *=.*/pruning-keep_every = \"$pruning_keep_every\"/" /root/$BINARY/config/app.toml && \
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
 snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot_interval *=.*/snapshot_interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
