@@ -126,9 +126,9 @@ then
 	  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
     if [[ ! "$PEER" =~ "tcp" ]] 
     then
-    	id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
-   		echo -n "$id@$PEER," >> /root/PEER.txt
-			echo $id@$PEER
+    	id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].url | sed 's@mconn://@@'`
+   		echo -n "$id," >> /root/PEER.txt
+			echo $id
 			rm /root/addr.tmp
 			echo $PEER | sed 's/:/ /g' > /root/addr.tmp
 			ADDRESS=(`cat /root/addr.tmp`)
@@ -170,7 +170,7 @@ sed -i -e "s/^pruning_keep_recent *=.*/pruning_keep_recent = \"$pruning_keep_rec
 sed -i -e "s/^pruning_keep_every *=.*/pruning_keep_every = \"$pruning_keep_every\"/" /root/$BINARY/config/app.toml && \
 sed -i -e "s/^pruning_interval *=.*/pruning_interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
 snapshot_interval="1000" && \
-sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
+sed -i.bak -e "s/^snapshot_interval *=.*/snapshot_interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
 # ====================RPC======================
 if [[ -n ${SNAP_RPC} ]]
