@@ -2,7 +2,8 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 cp /usr/lib/go-1.18/bin/go /usr/bin/
-
+PATH=$PATH:/root/go/bin
+export PATH
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt -y install tmate
