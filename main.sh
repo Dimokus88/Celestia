@@ -155,17 +155,13 @@ sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interva
 # ====================RPC======================
 if [[ -n ${SNAP_RPC} ]]
 then
-	RPC=`echo $SNAP_RPC,$RPC`
-	echo $RPC
-	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
-	BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-	BLOCK_HEIGHT=`echo $BLOCK_HEIGHT | sed "s/...$/000/"`; \
-	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-	s|^(rpc-servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
-	s|^(trust-height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust-hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$BINARY/config/config.toml
+cd $HOME
+rm -rf ~/$BINARY/data
+mkdir -p ~/$BINARY/data
+SNAP_NAME=$(curl -s https://snaps.qubelabs.io/celestia/ | \
+    egrep -o ">mamaki.*tar" | tr -d ">")
+wget -O - https://snaps.qubelabs.io/celestia/${SNAP_NAME} | tar xf - \
+    -C ~/$BINARY/data/
 fi
 #================================================
 wget -O /tmp/priv_validator_key.json ${LINK_KEY}
