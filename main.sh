@@ -144,9 +144,10 @@ echo $SEED
 sleep 5
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$BINARY/config/app.toml
 sleep 1
+sed -i.bak -e "s/^mode *=.*/mode = \"validator\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$BINARY/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$BINARY/config/config.toml
+sed -i.bak -e "s/^persistent-peers *=.*/persistent-peers = \"$PEER\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$BINARY/config/config.toml
 snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot_interval *=.*/snapshot_interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
