@@ -245,6 +245,7 @@ exec svlogd -tt $LOG
 EOF
 chmod +x /root/$BINARY/log/run
 ln -s /root/$BINARY /etc/service
+ln -s /var/log/$BINARY/current /LOG
 }
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
 
