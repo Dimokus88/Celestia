@@ -112,7 +112,7 @@ sleep 5
 
 if [[ -n ${SNAP_RPC} ]] && [[  -z "$PEER" ]]
 then
-  n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
+n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
   let n_peers="$n_peers"-1
   RPC="$SNAP_RPC"
   echo -n "$RPC," >> /root/RPC.txt
@@ -121,20 +121,13 @@ then
   echo "Search peers..."
   while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 9 ]]
   do
-	  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
+  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].url`
     if [[ ! "$PEER" =~ "tcp" ]] 
     then
-    	id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
-   		echo -n "$id@$PEER," >> /root/PEER.txt
-			echo $id@$PEER
-			rm /root/addr.tmp
-			echo $PEER | sed 's/:/ /g' > /root/addr.tmp
-			ADDRESS=(`cat /root/addr.tmp`)
-			ADDRESS=`echo ${ADDRESS[0]}`
-			PORT=(`cat /root/addr.tmp`)
-			PORT=`echo ${PORT[1]}`			
-   	fi
-	p="$p"+1
+          echo -n "$PEER," >> /root/PEER.txt
+          echo $PEER
+     fi
+p="$p"+1
 done
 echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
