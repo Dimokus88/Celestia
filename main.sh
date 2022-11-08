@@ -119,13 +119,14 @@ n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
   p=0
   count=0
   echo "Search peers..."
-  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 9 ]]
+  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 50 ]]
   do
   PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].url`
     if [[ ! "$PEER" =~ "tcp" ]] 
     then
           echo -n "$PEER," >> /root/PEER.txt
           echo $PEER
+	  count="$count"+1
      fi
 p="$p"+1
 done
