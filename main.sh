@@ -119,7 +119,7 @@ n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
   p=0
   count=0
   echo "Search peers..."
-  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 30 ]]
+  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 50 ]]
   do
   PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].url`
     if [[ ! "$PEER" =~ "tcp" ]] 
@@ -158,7 +158,8 @@ then
 	RPC=`echo $SNAP_RPC,$RPC`
 	echo $RPC
 	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
-	BLOCK_HEIGHT=$((LATEST_HEIGHT - $SHIFT)); \
+	BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+	BLOCK_HEIGHT=`echo $BLOCK_HEIGHT | sed "s/...$/000/"`; \
 	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
