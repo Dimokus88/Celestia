@@ -44,7 +44,7 @@ Before you start - subscribe to our news channels:
 
 ![image](https://user-images.githubusercontent.com/23629420/165339432-6f053e43-4fa2-4429-8eb7-d2fc66f47c70.png)
 
-* Click ***CREATE DEPLOYMENT***. Select ***Empty*** and copy the contents there [deploy.yml](https://github.com/Dimokus88/Celestia/blob/main/deploy_snapshot_sync.yml)
+* Click ***CREATE DEPLOYMENT***. Select ***Empty*** and copy the contents there [deploy.yml](https://raw.githubusercontent.com/Dimokus88/Akash-Nodes-Lab/main/Active_testnets/Celestia/celestia_deploy.yml)
 
 * Let's take a look at what is there, so the ```services``` section indicates the ```docker``` node image, as well as a block with environment variables ```env```:
 
@@ -54,7 +54,7 @@ Before you start - subscribe to our news channels:
 
 > ```LINK_KEY``` -  comment out the env to the priv_validator_key.json. 
 
-In the ```resources``` field, we set the capacity to be rented. ```2 CPU x 3 GB RAM x 40 GB SSD```  for ***Celestia*** node. 
+In the ```resources``` field, we set the capacity to be rented. ```4 CPU x 8 GB RAM x 200 GB SSD```  for ***Celestia*** node. 
 
 * Click on ```CREATE DEPLOYMENT``` and we are waiting for the appearance of providers with free capacities (BIDS).
 
@@ -117,7 +117,7 @@ Thus, you will get a link to a direct download of the file:
 
 ![image](https://user-images.githubusercontent.com/23629420/165339432-6f053e43-4fa2-4429-8eb7-d2fc66f47c70.png)
 
-* Click ***CREATE DEPLOYMENT***. Select ***Empty*** and copy the contents there [deploy.yml](https://github.com/Dimokus88/Celestia/blob/main/deploy_snapshot_sync.yml)
+* Click ***CREATE DEPLOYMENT***. Select ***Empty*** and copy the contents there [deploy.yml](https://raw.githubusercontent.com/Dimokus88/Akash-Nodes-Lab/main/Active_testnets/Celestia/celestia_deploy.yml)
 
 * Let's take a look at what is there, so the ```services``` section indicates the ```docker``` node image, as well as a block with environment variables ```env```:
 
@@ -126,7 +126,7 @@ Thus, you will get a link to a direct download of the file:
 * ```MNEMONIС```      -  insert the mnemonic phrase from your wallet ***Celestia***.
 * ```LINK_KEY``` -  paste the link to the hosted priv_validator_key.json (direct download).
 
-In the ```resources``` field, we set the capacity to be rented. ```2 CPU x 3 GB RAM x 40 GB SSD``` recommended for ***Celestia*** node. 
+In the ```resources``` field, we set the capacity to be rented. ```4 CPU x 8 GB RAM x 200 GB SSD``` recommended for ***Celestia*** node. 
 
 * Click on ```CREATE DEPLOYMENT``` and we are waiting for the appearance of providers with free capacities (BIDS).
 
@@ -166,7 +166,7 @@ We are waiting for the completion of the deployment.
 
 ![image](https://user-images.githubusercontent.com/23629420/165339432-6f053e43-4fa2-4429-8eb7-d2fc66f47c70.png)
 
-* Нажимаем ```CREATE DEPLOYMENT```. Выбираем ```Empty```(пустой template) и копируем туда содержимое [deploy.yml](https://github.com/Dimokus88/Celestia/blob/main/deploy_snapshot_sync.yml) .
+* Нажимаем ```CREATE DEPLOYMENT```. Выбираем ```Empty```(пустой template) и копируем туда содержимое [deploy.yml](https://raw.githubusercontent.com/Dimokus88/Akash-Nodes-Lab/main/Active_testnets/Celestia/celestia_deploy.yml) .
 
 Раберем что там есть, итак раздел ```services``` здесь указывается ```docker``` образ ноды, а также блок с переменными окружения ```env```:
 
@@ -178,7 +178,7 @@ We are waiting for the completion of the deployment.
 
 > Поле ***LINK_KEY*** -  оставьте закомментированным ссылка на размещенный priv_validator_key.json (прямое скачивание).
 
-Ниже, в поле ```resources``` мы выставляем арендуюмую мощность. для ноды ***Celestia*** рекомендуется ```2 CPU x 3 GB RAM x 40 GB SSD```.  
+Ниже, в поле ```resources``` мы выставляем арендуюмую мощность. для ноды ***Celestia*** рекомендуется ```4 CPU x 8 GB RAM x 200 GB SSD```.  
 
 Нажимаем кнопку ```CREATE DEPLOYMENT``` и ждем появления провайдеров, со свободными мощностями (***BIDS***).
 
@@ -240,7 +240,7 @@ We are waiting for the completion of the deployment.
 
 ![image](https://user-images.githubusercontent.com/23629420/165339432-6f053e43-4fa2-4429-8eb7-d2fc66f47c70.png)
 
-* Нажимаем ```CREATE DEPLOYMENT```. Выбираем ```Empty```(пустой template) и копируем туда содержимое [deploy.yml](https://github.com/Dimokus88/Celestia/blob/main/deploy_snapshot_sync.yml) .
+* Нажимаем ```CREATE DEPLOYMENT```. Выбираем ```Empty```(пустой template) и копируем туда содержимое [deploy.yml](https://raw.githubusercontent.com/Dimokus88/Akash-Nodes-Lab/main/Active_testnets/Celestia/celestia_deploy.yml) .
 
 Давайте раберем что там есть, итак раздел ```services``` здесь указывается ```docker``` образ ноды, а также блок с переменными окружения ```env```:
 
@@ -252,7 +252,7 @@ We are waiting for the completion of the deployment.
 
 В поле ***LINK_KEY*** -  скопируйте ссылку на размещенный priv_validator_key.json (прямое скачивание). 
 
-Ниже, в поле ```resources``` мы выставляем арендуемую мощность. для ноды ***Celestia*** рекомендуется ```2 CPU x 3 GB RAM x 40 GB SSD```.
+Ниже, в поле ```resources``` мы выставляем арендуемую мощность. для ноды ***Celestia*** рекомендуется ```4 CPU x 8 GB RAM x 200 GB SSD```.
 
 Нажимаем кнопку ```CREATE DEPLOYMENT``` и ждем появления провайдеров, со свободными мощностями (***BIDS***).
 
