@@ -40,7 +40,7 @@ If you don't have a `priv_validator_key.json` or want to know how to get a direc
 
 At this stage, the node is deployed. Navigating to the forwarded port **26657** in the `LEASES` tab, the `websocket` of the node will open, where its up-to-date information will be available. 
 
-*Attention! Snapshot download and synchronization takes about 2 hours!*
+**Attention! Snapshot download and synchronization takes about 2 hours!**
 
 If you need to **create** a validator on your `priv_validator_key.json` go to the next step.
 
@@ -109,7 +109,7 @@ ___
 
 На данном этапе нода развернута . Перейдя на переадресованный порт **26657** во вкладке `LEASES` откроется `websocket` ноды, где будет доступна ее актуальная информация. 
 
-*Внимание! Скачивание снепшота и синхронизация занимает около 2 часов!*
+**Внимание! Скачивание снепшота и синхронизация занимает около 2 часов!**
   
 Если вам нужно **создать** валидатора на вашем `priv_validator_key.json` перейдите к следующему пункту.
 
